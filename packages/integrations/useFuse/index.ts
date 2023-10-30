@@ -45,7 +45,8 @@ export function useFuse<DataItem>(
       return toValue(data).map((item, index) => ({ item, refIndex: index }))
 
     const limit = resolved?.resultLimit
-    return fuse.value.search(toValue(search), (limit ? { limit } : undefined))
+    const result = fuse.value.search(toValue(search))
+    return limit ? result.slice(0, limit) : result
   })
 
   return {
